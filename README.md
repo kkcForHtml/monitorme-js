@@ -3,7 +3,8 @@
 监控window.onerror，
 资源加载错误，跨域js错误，
 ajax请求错误以及捕获vue的errorHandler错误等上报，
-自定义sendError上报方法
+自定义sendError上报方法,
+自定义fliters忽略某些错误信息
 
 ## 开发
 
