@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>测试</title>
+        <!--start 引入vue-->
+        <script src="/src/utils.js"></script>
+        <script src="/src/index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+        <!--end-->
+        <!--start 打包后的js文件// dist/main.js-->
+        <!--end-->
+        <!--start init window.betterJs 配置sendError，使用fetch发送错误信息-->       
+        <script>
+            window.betterJs.init({
+                    vue: true,
+                    consoleError: true,
+                    sendError: function (error) {
+                        console.log(error);
+                    	//console.log(error.msg.message, error.msg.stack)
+                        fetch('./sendError', {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                date: new Date(),
+                                error
+                            })
+                        })
+                        .then(res => {
+                            if (res.ok) { // True if status is HTTP 2xx
+                                return res;
+                            }
+                            throw new Error(res.status + ':' + res.statusText);
+                        })
+                        .then(res => {
+                            return res.json();
+                        })
+                        .then(res => {
+                            console.log(res);
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+                    }
+                });
+                function handle () {
+                    new Promise((resolve, reject)=>{ 
+                        reject('reject promise'); 
+                    }).then((res)=>{ 
+                    console.log('ok'); 
+                    });
+                }
+                function xhrError () {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'wrong/xhrError');
+                    xhr.responseType = 'json';
+                    xhr.onload = function() {
+                        console.log(xhr.response);
+                    };
+                    xhr.onerror = function() {
+                        console.log("Oops, error");
+                    };
+                    xhr.send();
+                }
+                function fetchError () {
+                    fetch('http://localhost:3001/wrong/fetchError', {
+                            method: 'GET'
+                    })
+                    .then(res => {
+                        if (res.ok) { // True if status is HTTP 2xx
+                            return res;
+                        }
+                        throw new Error(res.status + ':' + res.statusText);
+                    })
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(e => {
+                        aaa();
+                        console.log(e);
+                    });
+                }
+                axios.get('/dfdf/dfdf');
+                console.error('12312312312')
+        </script>
+        <!--end-->
+        <style>
+            button {
+                width: 150px;
+                height: 30px;
+                line-height: 1;
+                background-color: snow;
+                margin: 10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="/sdfsdf/dsafasd" alt="">
+        <!--start 抛出资源加载错误-->       
+        <script src="/test.js"></script>
+        <!--end-->
+        <!--start 抛出windowError--> 
+        <button onclick="test">抛出windowError</button>
+        <!--end-->
+        <!--start 抛出xhrError--> 
+        <button onclick="xhrError()">抛出xhrError</button>
+        <!--end-->
+        <!--start 抛出fetchError--> 
+        <button onclick="fetchError()">抛出fetchError</button>
+        <!--end-->
+        <!--start 抛出unhandledrejection--> 
+        <button type="button" onclick="handle()">unhandledrejection</button>
+        <!--end-->
+        <!--start 抛出vue Error--> 
+        <div id="app">
+            <button @click="flag = !flag">vue Error</button>
+            <span>{{flag}}</span>
+        </div>
+        <script>
+            var app = new Vue({
+                    el: '#app',
+                    data: {
+                        flag: false
+                    },
+                    created () {
+                        this.$nextTick(function () {
+                            // 运行出错，上报vue Error
+                            that.initList();
+                        });
+                    }
+                })
+        </script>
+        <!--end-->
+    </body>
+</html>

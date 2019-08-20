@@ -1,0 +1,40 @@
+{
+  "name": "@kkcForHtml/monitorme-js",
+  "version": "1.0.0",
+  "description": "simple js error handler demo",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "nodemon test/main.js",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kkcForHtml/monitorme-js.git"
+  },
+  "keywords": [
+    "js",
+    "catch",
+    "error"
+  ],
+  "author": "Yawei Li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kkcForHtml/monitorme-js/issues"
+  },
+  "homepage": "https://github.com/kkcForHtml/monitorme-js#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "nodemon": "^1.17.3",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^3.1.5"
+  }
+}
